@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { StreamService } from './stream.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +10,38 @@ export class QueryService {
   apiUrl: string;
   
   constructor(
-    public httpClient: HttpClient
+    public httpClient: HttpClient,
+    public stream: StreamService
   ) {
     this.apiUrl = "http://localhost:3000/api/";
   }
 
   getUsers() {
-
+    this.httpClient
+    .get(this.apiUrl + "users")
+      .subscribe(
+        (res) => {
+          console.log("getusers for Users.findAll()", res);
+          this.stream.usersStream.next(res);
+        },
+        (err) => {
+          console.log("getusers for Users.findAll() error", err);
+        }
+      );
   }
   
-  getOneUser() {
-
+  getOneUser(id: number): any {
+    this.httpClient
+    .get(this.apiUrl + "users/" + id)
+      .subscribe(
+        (res) => {
+          console.log("getusers for Users.findOne()", res);
+          this.stream.usersStream.next(res);
+        },
+        (err) => {
+          console.log("getusers for Users.findAll() error", err);
+        }
+      );
   }
 
   userLogin(data: any) {
@@ -49,7 +71,17 @@ export class QueryService {
   }
 
   getPosts() {
-
+    this.httpClient
+    .get(this.apiUrl + "posts")
+      .subscribe(
+        (res) => {
+          console.log("getPosts for Post.findAll()", res);
+          this.stream.postsStream.next(res);
+        },
+        (err) => {
+          console.log("getPosts for Post.findAll() error", err);
+        }
+      );
   }
   
   getOnePost() {
