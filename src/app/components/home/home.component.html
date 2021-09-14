@@ -1,8 +1,10 @@
-<mat-card class="card-container" *ngFor="let post of posts">
+<mat-card class="card-container" *ngFor="let post of posts; let i = index">
   <mat-card-header>
     <div mat-card-avatar class=""></div>
     <mat-card-title>{{ post.title }}</mat-card-title>
-    <mat-card-subtitle>{{ this.query.getOneUser(post.userId) }}</mat-card-subtitle>
+    <mat-card-subtitle *ngFor="let user of users">
+      <ng-template *ngIf="post.userId === user.id">{{user.first_name}}</ng-template>
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>
@@ -22,3 +24,4 @@
 </mat-card>
 
 <pre>{{posts | json}}</pre>
+<pre>{{users | json}}</pre>

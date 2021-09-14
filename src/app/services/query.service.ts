@@ -36,7 +36,7 @@ export class QueryService {
       .subscribe(
         (res) => {
           console.log("getusers for Users.findOne()", res);
-          this.stream.usersStream.next(res);
+          this.stream.userStream.next(res);
         },
         (err) => {
           console.log("getusers for Users.findAll() error", err);

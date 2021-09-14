@@ -15,6 +15,9 @@ export class HomeComponent implements OnInit {
 
   usersStream_subscriber: Subscription;
   users: any;
+
+  userStream_subscriber: Subscription;
+  user:any;
   
   constructor(
     public query: QueryService,
@@ -23,6 +26,7 @@ export class HomeComponent implements OnInit {
       this.postsStream_subscriber = this.stream.postsStream.subscribe(
         (data) => {
           this.posts = data;
+
           console.log(data);
         },
         (err) => {
@@ -38,11 +42,25 @@ export class HomeComponent implements OnInit {
 
         }
       );
+      this.userStream_subscriber = this.stream.userStream.subscribe(
+        (data) => {
+          this.user = data;
+          console.log(data);
+        },
+        (err) => {
+
+        }
+      );
     }
 
   ngOnInit(): void {
     this.query.getPosts();
     this.query.getUsers();
+  }
+
+  test(userId: number) {
+    console.log("test function");
+    this.query.getOneUser(userId);
   }
 
 }
