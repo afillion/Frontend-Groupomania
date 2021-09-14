@@ -3,6 +3,14 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+app-toolbar {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+}
+
+
 .login-container {
   display: flex;
   justify-content: center;

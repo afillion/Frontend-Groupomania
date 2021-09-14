@@ -3,7 +3,7 @@
     <div mat-card-avatar class=""></div>
     <mat-card-title>{{ post.title }}</mat-card-title>
     <mat-card-subtitle *ngFor="let user of users">
-      <ng-template *ngIf="post.userId === user.id">{{user.first_name}}</ng-template>
+      <ng-template [ngIf]="post.userId === user.id">{{user.first_name}}</ng-template>
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>

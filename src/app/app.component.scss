@@ -1,5 +1,9 @@
-.toolbar-container {
+div.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .spacer {
     flex: 1 1 auto;
+    height: 5rem;
   }
 }

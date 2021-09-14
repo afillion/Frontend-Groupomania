@@ -29,6 +29,7 @@ import { PortailComponent } from './components/portail/portail.component';
 /* SERVICE */
 import { QueryService } from './services/query.service';
 import { StreamService } from './services/stream.service';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { StreamService } from './services/stream.service';
     ProfilComponent,
     UsersComponent,
     HomeComponent,
-    PortailComponent
+    PortailComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
