@@ -31,10 +31,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Enter your password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" [formControl]="pwdCtrl">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="pwdCtrl.invalid">Choisissez un mot de passe entre 5 et 15 caracteres</mat-error>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="pwdCtrl.invalid">Choisissez un mot de passe entre 4 et 15 caracteres</mat-error>
       </mat-form-field>
     </div>
   

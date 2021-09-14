@@ -1,1 +1,51 @@
-<p>signup works!</p>
+<div class="login-container">
+
+  <form class="form-container" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  
+    <div class="form-field-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Prénom</mat-label>
+        <input matInput type="text" placeholder="Jean" [formControl]="firstnameCtrl">
+        <mat-error *ngIf="firstnameCtrl.invalid">Mauvaise données</mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div class="form-field-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input matInput type="text" placeholder="Dupont" [formControl]="lastnameCtrl">
+        <mat-error *ngIf="lastnameCtrl.invalid">Mauvaise données</mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div class="form-field-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Pseudo</mat-label>
+        <input matInput type="text" placeholder="Link667" [formControl]="pseudoCtrl">
+        <mat-error *ngIf="pseudoCtrl.invalid">Mauvaise données</mat-error>
+      </mat-form-field>
+    </div>
+  
+    <div class="form-field-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Email*</mat-label>
+        <input matInput type="email" placeholder="test@test.com" [formControl]="emailCtrl">
+        <span matSuffix><mat-icon>email</mat-icon></span>
+        <mat-error *ngIf="emailCtrl.invalid">Veuillez utiliser une adresse email valide. Ex: test@test.com</mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div class="form-field-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="pwdCtrl">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="pwdCtrl.invalid">Choisissez un mot de passe entre 4 et 15 caracteres</mat-error>
+      </mat-form-field>
+    </div>
+  
+    <button mat-raised-button type="submit" color="primary">Primary</button>
+    
+  </form>
+
+</div>

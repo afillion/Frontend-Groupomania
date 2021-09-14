@@ -21,6 +21,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { UsersComponent } from './components/users/users.component';
+import { HomeComponent } from './components/home/home.component';
 
 /* SERVICE */
 import { QueryService } from './services/query.service';
@@ -31,7 +32,8 @@ import { QueryService } from './services/query.service';
     SignupComponent,
     LoginComponent,
     ProfilComponent,
-    UsersComponent
+    UsersComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
