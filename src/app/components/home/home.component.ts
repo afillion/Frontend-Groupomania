@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { QueryService } from 'src/app/services/query.service';
-import { StreamService } from 'src/app/services/stream.service';
+import { Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { Posts, QueryService } from 'src/app/services/query.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -10,57 +12,38 @@ import { StreamService } from 'src/app/services/stream.service';
 })
 export class HomeComponent implements OnInit {
 
-  postsStream_subscriber: Subscription;
-  posts: any;
-
-  usersStream_subscriber: Subscription;
-  users: any;
-
-  userStream_subscriber: Subscription;
-  user:any;
+  posts:Posts[] = [];
+  postsSubject = new Subject<Posts[]>();
   
   constructor(
     public query: QueryService,
-    public stream: StreamService
-    ) {
-      this.postsStream_subscriber = this.stream.postsStream.subscribe(
-        (data) => {
-          this.posts = data;
-
-          console.log(data);
-        },
-        (err) => {
-
-        }
-      );
-      this.usersStream_subscriber = this.stream.usersStream.subscribe(
-        (data) => {
-          this.users = data;
-          console.log(data);
-        },
-        (err) => {
-
-        }
-      );
-      this.userStream_subscriber = this.stream.userStream.subscribe(
-        (data) => {
-          this.user = data;
-          console.log(data);
-        },
-        (err) => {
-
-        }
-      );
+    public store: StorageService,
+    public auth: AuthService,
+    private router: Router
+    ) { 
+      // this.store.localStorage.clear(); 
     }
 
   ngOnInit(): void {
-    this.query.getPosts();
-    this.query.getUsers();
+    this.query.getPosts().subscribe(
+      (data: Posts[]) => { this.posts = data; this.emitPosts(); },
+      (err) => { console.log(err); },
+      () => { console.log("getPosts complete !") }
+    );
   }
 
-  test(userId: number) {
-    console.log("test function");
-    this.query.getOneUser(userId);
+  emitPosts() {
+    this.postsSubject.next(this.posts);
   }
 
+  updateLikes(postId: number, like:number) {
+    this.query.updateLikes(this.store.localStorage.userId, postId, like).subscribe(
+      (res) => {
+        console.log(res); 
+        this.ngOnInit();
+      },
+      (err) => { console.log(err); },
+      () => { console.log("updateLikes complete !"); }
+    );
+  }
 }

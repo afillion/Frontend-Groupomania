@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { QueryService } from 'src/app/services/query.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public query: QueryService,
-    public router: Router
+    public router: Router,
+    private store: StorageService
   )
   {
     this.loginForm = fb.group({
@@ -35,8 +37,17 @@ export class LoginComponent implements OnInit {
 
   user_register() {
     console.log("user register : { 'apiUrl + 'users/login': ", this.query.apiUrl + "users/login", "\n 'data': ", this.loginForm.value);
-    this.query.userLogin(this.loginForm.value);
-    this.router.navigate(['/home']);
+    this.query.userLogin(this.loginForm.value).subscribe(
+      (data) => {
+        console.log("userLogin data : ", data);
+        this.store.localStorage.setItem("userId", data['userId']);
+        this.store.localStorage.setItem("token", data['token']);
+        console.log(this.store.localStorage);
+        this.router.navigate(['/home']);
+      },
+      (err) => { console.log("userLogin error : ", err); },
+      () => { console.log("userLogin complete !"); }
+    );
   }
 
   onSubmit() {

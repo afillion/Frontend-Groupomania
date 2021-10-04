@@ -1,91 +1,80 @@
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { StreamService } from './stream.service';
+import { StorageService } from './storage.service';
 
+export interface Login {
+  email: string,
+  pwd: string
+}
+
+export interface Users {
+  id: number,
+  pseudo: string,
+  first_name:string,
+  last_name:string,
+  pwd: string,
+  role: string,
+  description: string,
+  email: string
+}
+
+export interface Posts {
+  id: number,
+  title: string,
+  txt: string,
+  likes: number,
+  dislikes: number,
+  imageUrl: string,
+  userId: number,
+  createdAt: string,
+  updatedAt: string,
+  user: Users
+}
 @Injectable({
   providedIn: 'root'
 })
+
 export class QueryService {
 
   apiUrl: string;
+  Users: Users;
+  httpOptions:any;
+  id:number;
+  token: string;
   
   constructor(
     public httpClient: HttpClient,
-    public stream: StreamService
   ) {
     this.apiUrl = "http://localhost:3000/api/";
   }
 
   getUsers() {
-    this.httpClient
-    .get(this.apiUrl + "users")
-      .subscribe(
-        (res) => {
-          console.log("getusers for Users.findAll()", res);
-          this.stream.usersStream.next(res);
-        },
-        (err) => {
-          console.log("getusers for Users.findAll() error", err);
-        }
-      );
+    return this.httpClient.get<Users[]>(this.apiUrl + "users");
   }
   
   getOneUser(id: number): any {
-    this.httpClient
-    .get(this.apiUrl + "users/" + id)
-      .subscribe(
-        (res) => {
-          console.log("getusers for Users.findOne()", res);
-          this.stream.userStream.next(res);
-        },
-        (err) => {
-          console.log("getusers for Users.findAll() error", err);
-        }
-      );
+    return this.httpClient.get<Users>(this.apiUrl + "users/" + id);
   }
-
-  userLogin(data: any) {
-    this.httpClient
-    .post(this.apiUrl + "users/login", data)
-      .subscribe(
-        () => {
-          console.log('Enregistrement terminé !');
-        },
-        (error) => {
-          console.log('Erreur ! : ' , error);
-        }
-      );
+  
+  userLogin(data: Login) {
+    return this.httpClient.post<Login>(this.apiUrl + "users/login", data);
   }
 
   userSignup(data: any) {
-    this.httpClient
-    .post(this.apiUrl + "users/signup", data)
-      .subscribe(
-        () => {
-          console.log('Enregistrement terminé !');
-        },
-        (error) => {
-          console.log('Erreur ! : ' , error);
-        }
-      );
+    return this.httpClient.post<Posts>(this.apiUrl + "users/signup", data);
   }
 
   getPosts() {
-    this.httpClient
-    .get(this.apiUrl + "posts")
-      .subscribe(
-        (res) => {
-          console.log("getPosts for Post.findAll()", res);
-          this.stream.postsStream.next(res);
-        },
-        (err) => {
-          console.log("getPosts for Post.findAll() error", err);
-        }
-      );
+    return this.httpClient.get<Posts[]>(this.apiUrl + "posts");
   }
   
   getOnePost() {
 
+  }
+
+  updateLikes(userId, postId, like) {
+    return this.httpClient.post(this.apiUrl + "posts/" + postId + "/like", {"userId": userId, "postId": postId, "like": like});
   }
 
   getComments() {

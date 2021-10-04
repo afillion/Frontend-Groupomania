@@ -3,12 +3,12 @@
     <button mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Groupomania</span>
+    <span (click)="goHome()" class="toolbar__title">Groupomania</span>
     <span class="spacer"></span>
     <button mat-icon-button (click)="goProfil()">
       <mat-icon>account_circle</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="disconnect()">
       <mat-icon>power_settings_new</mat-icon>
     </button>
   </mat-toolbar>

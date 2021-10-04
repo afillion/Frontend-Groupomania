@@ -1,1 +1,5 @@
-<p>profil works!</p>
+<ng-template [ngIf]="!isLoading">
+  <h1>{{ user.first_name }}</h1>
+</ng-template>
+
+<pre>{{ user | json}}</pre>
