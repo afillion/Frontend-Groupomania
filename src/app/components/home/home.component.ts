@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
 
   posts:Posts[] = [];
   postsSubject = new Subject<Posts[]>();
-  
+  panelOpenState = false;
+    
   constructor(
     public query: QueryService,
     public store: StorageService,

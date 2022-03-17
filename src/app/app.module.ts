@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
 
 /* COMPONENTS */
 import { AppComponent } from './app.component';
@@ -59,7 +60,8 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
     MatInputModule,
     MatToolbarModule,
     MatCardModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatExpansionModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

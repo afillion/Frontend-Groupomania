@@ -21,6 +21,7 @@ export class AuthService {
     // Other functions
     const expirationDate = helper.getTokenExpirationDate(this.store.localStorage.token);
     const isExpired = helper.isTokenExpired(this.store.localStorage.token); 
+    console.log("auth service");
     if (isExpired == false) {
       this.authState = true;
       return this.authState;

@@ -19,6 +19,15 @@ export interface Users {
   email: string
 }
 
+export interface Comments {
+  id: number,
+  txt: string,
+  createdAt: string,
+  updatedAt: string,
+  userId: number,
+  postId: number  
+}
+
 export interface Posts {
   id: number,
   title: string,
@@ -29,7 +38,8 @@ export interface Posts {
   userId: number,
   createdAt: string,
   updatedAt: string,
-  user: Users
+  user: Users,
+  comments: [Comments]
 }
 @Injectable({
   providedIn: 'root'
