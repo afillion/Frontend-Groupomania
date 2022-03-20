@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +11,14 @@ export class AuthService {
   
   constructor(
     private store: StorageService,
+    private token: TokenService
   ) { this.authState = false; }
   
-  isAuth(): boolean {
-    const helper = new JwtHelperService();
+  isOwner(object_ownerId): boolean {
     
-    const decodedToken = helper.decodeToken(this.store.localStorage.token);
-    
-    // Other functions
-    const expirationDate = helper.getTokenExpirationDate(this.store.localStorage.token);
-    const isExpired = helper.isTokenExpired(this.store.localStorage.token); 
+    const decodedToken = this.token.get_decodedToken(this.store.localStorage.token)
     console.log("auth service");
-    if (isExpired == false) {
+    if (object_ownerId === decodedToken.userId) {
       this.authState = true;
       return this.authState;
     }

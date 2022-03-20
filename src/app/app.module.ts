@@ -18,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /* COMPONENTS */
 import { AppComponent } from './app.component';
@@ -33,6 +34,9 @@ import { QueryService } from './services/query.service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { StorageService } from './services/storage.service';
 import { AuthInterceptor } from './services/auth-interceptor.service';
+import { DialogCommentsComponent } from './components/dialog-comments/dialog-comments.component';
+import { SubjectsService } from './services/subjects.service';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,8 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
     HomeComponent,
     PortailComponent,
     ToolbarComponent,
+    DialogCommentsComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,13 +67,15 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
     MatToolbarModule,
     MatCardModule,
     MatBadgeModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: Window, useValue: window },
     QueryService,
-    StorageService
+    StorageService,
+    SubjectsService
   ],
   bootstrap: [AppComponent]
 })

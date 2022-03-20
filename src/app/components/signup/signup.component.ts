@@ -12,9 +12,9 @@ import { StorageService } from 'src/app/services/storage.service';
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
-  pseudoCtrl = new FormControl('', [Validators.minLength(4), Validators.maxLength(10)]);
-  firstnameCtrl = new FormControl('', [Validators.minLength(4), Validators.maxLength(10)]);
-  lastnameCtrl = new FormControl('', [Validators.minLength(4), Validators.maxLength(10)]);
+  pseudoCtrl = new FormControl("", [Validators.minLength(4), Validators.maxLength(10)]);
+  firstnameCtrl = new FormControl("", [Validators.minLength(4), Validators.maxLength(10)]);
+  lastnameCtrl = new FormControl("", [Validators.minLength(4), Validators.maxLength(10)]);
   emailCtrl = new FormControl("", [Validators.email, Validators.required]);
   pwdCtrl = new FormControl("", [Validators.minLength(4), Validators.maxLength(15), Validators.required]);
   hide = true;

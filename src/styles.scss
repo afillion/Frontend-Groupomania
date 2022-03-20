@@ -10,6 +10,11 @@ app-toolbar {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+  cursor: auto;
+}
 
 .login-container {
   display: flex;
@@ -25,4 +30,25 @@ app-toolbar {
     flex-direction: column;
     margin-bottom: 1rem;
   }
+}
+
+.card-container {
+  max-width: 60%;
+  margin: auto;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.form--action{
+  display: flex;
+  justify-content: end;
+  margin-top: 1rem;
+}
+
+.file-input {
+  display: none;
+}
+
+textarea {
+  min-height: 8rem;
 }

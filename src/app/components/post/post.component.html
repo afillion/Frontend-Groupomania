@@ -1,0 +1,57 @@
+<ng-template [ngIf]="!isLoading">
+    <mat-card class="card-container">
+        <mat-card-header>
+            <div mat-card-avatar class=""></div>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+            <mat-card-subtitle>
+                <p>
+                    <span>By {{ post.user.pseudo }} </span>
+                    <span> posté le {{post.updatedAt | date:'shortDate'}} à {{post.updatedAt | date:'shortTime'}} </span>
+                </p>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>{{ post.txt }}</p>
+        </mat-card-content>
+        <mat-card-actions style="display: flex;">
+            <!-- <button mat-raised-button color="primary" [matBadge]="post.likes" matBadgePosition="before" matBadgeColor="accent"
+                (click)="updateLikes(post.id, 1)">LIKE
+                <mat-icon>thumb_up</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" [matBadge]="post.dislikes" matBadgePosition="after" matBadgeColor="accent"
+            (click)="updateLikes(post.id, -1)">DISLIKE
+            <mat-icon>thumb_down</mat-icon>
+            </button> -->
+            <!-- <button mat-button (click)="openDialog(post)">Commentaires</button> -->
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="card-container" *ngFor="let comment of post.comments">
+        <mat-card-header>
+            <div mat-card-avatar class=""></div>
+            <mat-card-title>{{ comment.user.pseudo }}</mat-card-title>
+            <mat-card-subtitle>
+                <p>
+                    <span>{{ comment.user.first_name }} {{comment.user.last_name}} </span>
+                    <span> posté le {{comment.updatedAt | date:'shortDate'}} à {{comment.updatedAt | date:'shortTime'}} </span>
+                </p>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>{{ comment.txt }}</p>
+        </mat-card-content>
+        <mat-card-actions style="display: flex;">
+            <!-- <button mat-raised-button color="primary" [matBadge]="post.likes" matBadgePosition="before" matBadgeColor="accent"
+                (click)="updateLikes(post.id, 1)">LIKE
+                <mat-icon>thumb_up</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" [matBadge]="post.dislikes" matBadgePosition="after" matBadgeColor="accent"
+            (click)="updateLikes(post.id, -1)">DISLIKE
+            <mat-icon>thumb_down</mat-icon>
+            </button> -->
+            <!-- <button mat-button (click)="openDialog(post)">Commentaires</button> -->
+        </mat-card-actions>
+    </mat-card>
+</ng-template>
+
+<pre>{{this.post | json}}</pre>

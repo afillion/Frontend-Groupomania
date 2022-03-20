@@ -1,0 +1,8 @@
+<h3>Commentaires</h3>
+<p *ngFor="let comment of this.data.comments">{{comment.txt}}</p>
+<form>
+    <mat-form-field appearance="fill">
+        <mat-label>Laisser un commentaire :)</mat-label>
+        <textarea matInput placeholder="Ex: J'adore l'article que tu as partagé"></textarea>
+    </mat-form-field>
+</form>

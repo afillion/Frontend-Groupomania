@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscriber } from 'rxjs';
-import { QueryService, Users } from 'src/app/services/query.service';
+import { QueryService, IUsers } from 'src/app/services/query.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-profil',
@@ -10,18 +11,19 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class ProfilComponent implements OnInit {
 
-  user: Users;
-  userSub: Subscriber<Users> = new Subscriber<Users>();
+  user: IUsers;
+  userSub: Subscriber<IUsers> = new Subscriber<IUsers>();
   isLoading: boolean
   
   constructor(
     private query: QueryService,
-    private store: StorageService
+    private store: StorageService,
+    private token: TokenService
   ) { this.isLoading = true; }
 
   ngOnInit(): void {
-    this.query.getOneUser(this.store.localStorage.userId).subscribe(
-      (data: Users) => {
+    this.query.getOneUser(this.token.get_decodedToken(this.store.localStorage.token).userId).subscribe(
+      (data: IUsers) => {
         this.user = data;
         this.userSub.next(data)
         this.isLoading = false;
