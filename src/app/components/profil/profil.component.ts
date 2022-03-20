@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { QueryService, IUsers } from 'src/app/services/query.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -18,7 +19,8 @@ export class ProfilComponent implements OnInit {
   constructor(
     private query: QueryService,
     private store: StorageService,
-    private token: TokenService
+    private token: TokenService,
+    private router: Router
   ) { this.isLoading = true; }
 
   ngOnInit(): void {
@@ -30,6 +32,18 @@ export class ProfilComponent implements OnInit {
       },
       (err) => { console.log(err); },
       () => { console.log("getUsers complete !") }
+    );
+  }
+
+  deleteAccount():void {
+    this.query.delOneUser(this.token.get_userId()).subscribe(
+      (res) => {
+        console.log(res);
+        this.store.localStorage.clear();
+        this.router.navigate(['']);
+      },
+      (err) => {console.log(err);},
+      () => {console.log("delOneUser complete");}
     );
   }
 

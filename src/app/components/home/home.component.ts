@@ -100,10 +100,12 @@ export class HomeComponent implements OnInit {
       data.imageUrl = '';
       // data.fileData = this.fileData;
       console.log(data);
-      // const formData:FormData = new FormData();
-      // formData.append('images', this.file);
-      // formData.append('post', JSON.stringify(data));
-      this.query.postPost(data).subscribe(
+      const formData:FormData = new FormData();
+      formData.append('images', this.file);
+      formData.append('title', data.title);
+      formData.append('txt', data.txt);
+      formData.append('userId', data.userId.toString());
+      this.query.postPost(formData).subscribe(
         (res) => { console.log(res);},
         (err) => {console.log(err);},
         () => {console.log("postPost() complete !");}

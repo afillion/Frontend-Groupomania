@@ -68,6 +68,10 @@ export class QueryService {
   getOneUser(id: number): any {
     return this.httpClient.get<IUsers>(this.apiUrl + "users/" + id);
   }
+
+  delOneUser(id: number): any {
+    return this.httpClient.delete<IUsers>(this.apiUrl + "users/" + id);
+  }
   
   userLogin(data: ILogin) {
     return this.httpClient.post<ILogin>(this.apiUrl + "users/login", data);
@@ -85,14 +89,18 @@ export class QueryService {
     return this.httpClient.get<IPosts>(this.apiUrl + "posts/" + id);
   }
 
-  postPost(data: IPosts) {
-    return this.httpClient.post<IPosts>(this.apiUrl + "posts/", data)
+  postPost(data: FormData) {
+    return this.httpClient.post<IPosts>(this.apiUrl + "posts/", data);
   }
 
   updateLikes(userId, postId, like) {
     return this.httpClient.post(this.apiUrl + "posts/" + postId + "/like", {"userId": userId, "postId": postId, "like": like});
   }
 
+  postComment(data: IComments):any {
+    return this.httpClient.post(this.apiUrl + "comments/", data);
+  }
+  
   getComments() {
 
   }

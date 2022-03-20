@@ -49,6 +49,8 @@ a {
   display: none;
 }
 
-textarea {
-  min-height: 8rem;
+.txtarea {
+  &--post {
+    min-height: 8rem;
+  }
 }

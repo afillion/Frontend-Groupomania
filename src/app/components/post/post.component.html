@@ -12,6 +12,7 @@
         </mat-card-header>
         <mat-card-content>
             <p>{{ post.txt }}</p>
+            <img src="http://localhost:3000/images/{{post.imageUrl}}" alt="">
         </mat-card-content>
         <mat-card-actions style="display: flex;">
             <!-- <button mat-raised-button color="primary" [matBadge]="post.likes" matBadgePosition="before" matBadgeColor="accent"
@@ -26,32 +27,54 @@
         </mat-card-actions>
     </mat-card>
 
-    <mat-card class="card-container" *ngFor="let comment of post.comments">
-        <mat-card-header>
-            <div mat-card-avatar class=""></div>
-            <mat-card-title>{{ comment.user.pseudo }}</mat-card-title>
-            <mat-card-subtitle>
-                <p>
-                    <span>{{ comment.user.first_name }} {{comment.user.last_name}} </span>
-                    <span> posté le {{comment.updatedAt | date:'shortDate'}} à {{comment.updatedAt | date:'shortTime'}} </span>
-                </p>
-            </mat-card-subtitle>
-        </mat-card-header>
+
+    <mat-card class="card-container">
+        <mat-card-title>Commentez ce poste <strong>{{this.token.get_decodedToken(this.store.localStorage.token).first_name}}</strong></mat-card-title>
         <mat-card-content>
-            <p>{{ comment.txt }}</p>
+          <form class="form" [formGroup]="newCommentForm" (ngSubmit)="sendComment()">
+            <mat-form-field appearance="fill">
+              <mat-label>Qu'en pensez vous ?</mat-label>
+              <textarea matInput #message maxlength="512" placeholder="Partagez avec vos collègues ici :)" [formControl]="newCommentTxtCtrl"></textarea>
+              <mat-hint align="start"><p>Ne partagez pas vos informations de compte !</p> </mat-hint>
+              <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
+            </mat-form-field>
+            <div class="form--action">
+              <button mat-button type="submit">PUBLIER
+                <mat-icon>send</mat-icon>
+              </button>
+            </div>
+          </form>
         </mat-card-content>
-        <mat-card-actions style="display: flex;">
-            <!-- <button mat-raised-button color="primary" [matBadge]="post.likes" matBadgePosition="before" matBadgeColor="accent"
-                (click)="updateLikes(post.id, 1)">LIKE
-                <mat-icon>thumb_up</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" [matBadge]="post.dislikes" matBadgePosition="after" matBadgeColor="accent"
-            (click)="updateLikes(post.id, -1)">DISLIKE
-            <mat-icon>thumb_down</mat-icon>
-            </button> -->
-            <!-- <button mat-button (click)="openDialog(post)">Commentaires</button> -->
-        </mat-card-actions>
-    </mat-card>
+      </mat-card>
+
+    <div *ngFor="let comment of post.comments">
+        <mat-card class="card-container" *ngIf="comment.userId !== null">
+            <mat-card-header>
+                <div mat-card-avatar class=""></div>
+                <mat-card-title>{{ comment.user.pseudo }}</mat-card-title>
+                <mat-card-subtitle>
+                    <p>
+                        <span>{{ comment.user.first_name }} {{comment.user.last_name}} </span>
+                        <span> posté le {{comment.updatedAt | date:'shortDate'}} à {{comment.updatedAt | date:'shortTime'}} </span>
+                    </p>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{ comment.txt }}</p>
+            </mat-card-content>
+            <mat-card-actions style="display: flex;">
+                <!-- <button mat-raised-button color="primary" [matBadge]="post.likes" matBadgePosition="before" matBadgeColor="accent"
+                    (click)="updateLikes(post.id, 1)">LIKE
+                    <mat-icon>thumb_up</mat-icon>
+                </button>
+                <button mat-raised-button color="primary" [matBadge]="post.dislikes" matBadgePosition="after" matBadgeColor="accent"
+                (click)="updateLikes(post.id, -1)">DISLIKE
+                <mat-icon>thumb_down</mat-icon>
+                </button> -->
+                <!-- <button mat-button (click)="openDialog(post)">Commentaires</button> -->
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </ng-template>
 
 <pre>{{this.post | json}}</pre>

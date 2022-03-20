@@ -14,7 +14,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Regider votre poste ici :)</mat-label>
-        <textarea matInput #message maxlength="512" placeholder="Partagez avec vos collègues ici :)" [formControl]="newPostTxtCtrl"></textarea>
+        <textarea matInput class="txtarea--post" #message maxlength="512" placeholder="Partagez avec vos collègues ici :)" [formControl]="newPostTxtCtrl"></textarea>
         <mat-hint align="start"><p>Ne partagez pas vos informations de compte !</p> </mat-hint>
         <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
       </mat-form-field>
@@ -27,58 +27,60 @@
           
           <button mat-mini-fab color="primary" class="upload-btn"
           (click)="fileUpload.click()">
-          <mat-icon>attach_file</mat-icon>
+            <mat-icon>attach_file</mat-icon>
+          </button>
+        </div>
+        <button mat-button type="submit">PUBLIER
+          <mat-icon>send</mat-icon>
         </button>
       </div>
-      <button mat-button type="submit">PUBLIER
-        <mat-icon>send</mat-icon>
-      </button>
-    </div>
-  </form>
-</mat-card-content>
-<mat-card-actions align="end">
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
   
-</mat-card-actions>
+  </mat-card-actions>
 </mat-card>
 
-<mat-card class="card-container" *ngFor="let post of posts; let i = index">
-  <div (click)="viewComments(post.id)">
-    <mat-card-header>
-      <div mat-card-avatar class=""></div>
-      <mat-card-title>{{ post.title }}</mat-card-title>
-      <mat-card-subtitle>
-        <p>
-          <span>By {{ post.user.pseudo }} </span>
-          <span> posté le {{post.updatedAt | date:'shortDate'}} à {{post.updatedAt | date:'shortTime'}} </span>
-        </p>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>{{ post.txt }}</p>
-      <img src="{{post.imageUrl}}" alt="">
-    </mat-card-content>
-    <mat-card-actions style="display: flex; justify-content: space-between;">
-      <div class="card-action__likes">
-        <button mat-raised-button color="primary" [matBadge]="post.likes" matBadgePosition="before" matBadgeColor="accent"
-        (click)="updateLikes(post.id, 1, $event)">LIKE
-        <mat-icon>thumb_up</mat-icon>
+<div *ngFor="let post of posts; let i = index">
+  <mat-card class="card-container" *ngIf="post.userId !== null">
+    <div (click)="viewComments(post.id)">
+      <mat-card-header>
+        <div mat-card-avatar class=""></div>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <p>
+            <span>By {{ post.user.pseudo }} </span>
+            <span> posté le {{post.updatedAt | date:'shortDate'}} à {{post.updatedAt | date:'shortTime'}} </span>
+          </p>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ post.txt }}</p>
+        <img src="http://localhost:3000/images/{{post.imageUrl}}" alt="">
+      </mat-card-content>
+      <mat-card-actions style="display: flex; justify-content: space-between;">
+        <div class="card-action__likes">
+          <button mat-raised-button color="primary" [matBadge]="post.likes" matBadgePosition="before" matBadgeColor="accent"
+          (click)="updateLikes(post.id, 1, $event)">LIKE
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" [matBadge]="post.dislikes" matBadgePosition="after" matBadgeColor="accent"
+        (click)="updateLikes(post.id, -1, $event)">DISLIKE
+        <mat-icon>thumb_down</mat-icon>
       </button>
-      <button mat-raised-button color="primary" [matBadge]="post.dislikes" matBadgePosition="after" matBadgeColor="accent"
-      (click)="updateLikes(post.id, -1, $event)">DISLIKE
-      <mat-icon>thumb_down</mat-icon>
-    </button>
+    </div>
+    <div class="card-action__actions">
+      <button mat-raised-button color="warn" *ngIf="this.auth.isOwner(post.user.id)">Edit
+        <mat-icon>edit</mat-icon>
+      </button>
+      <!-- <button mat-button (click)="openDialog(post)">Commentaires</button> -->
+      <button mat-raised-button color="accent" [matBadge]="getNumberOfComments(i)" matBadgePosition="after" matBadgeColor="primary"
+      (click)="viewComments(post.id)">VIEW COMMENTS</button>
+    </div>
+  </mat-card-actions>
   </div>
-  <div class="card-action__actions">
-    <button mat-raised-button color="warn" *ngIf="this.auth.isOwner(post.user.id)">Edit
-      <mat-icon>edit</mat-icon>
-    </button>
-    <!-- <button mat-button (click)="openDialog(post)">Commentaires</button> -->
-    <button mat-raised-button color="accent" [matBadge]="getNumberOfComments(i)" matBadgePosition="after" matBadgeColor="primary"
-    (click)="viewComments(post.id)">VIEW COMMENTS</button>
-  </div>
-</mat-card-actions>
+  </mat-card>
 </div>
-</mat-card>
 
 
 <pre>{{ posts | json }}</pre>
