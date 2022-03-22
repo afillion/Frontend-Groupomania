@@ -82,8 +82,25 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  getNumberOfComments(postIndex:number):number {
-    return Object.keys(this.posts[postIndex].comments).length;
+  getPostLike(post: IPosts) : number {
+    if (post.userslikes == undefined) {
+      return 0;
+    }
+    return Object.keys(post.userslikes).length;
+  }
+
+  getPostDislike(post: IPosts) : number {
+    if (post.usersdislikes == undefined) {
+      return 0;
+    }
+    return Object.keys(post.usersdislikes).length;
+  }
+
+  getNumberOfComments(post: IPosts):number {
+    if (post.comments == undefined) {
+      return 0;
+    }
+    return Object.keys(post.comments).length;
   }
   
   viewComments(id): void {

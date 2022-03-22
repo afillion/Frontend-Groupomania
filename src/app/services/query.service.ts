@@ -19,6 +19,12 @@ export interface IUsers {
   email: string
 }
 
+export interface ILike {
+  id: number,
+  postId: number,
+  userId: number
+}
+
 export interface IComments {
   id: number,
   txt: string,
@@ -35,6 +41,8 @@ export interface IPosts {
   txt: string,
   likes: number,
   dislikes: number,
+  userslikes: [ILike],
+  usersdislikes: [ILike],
   imageUrl: string,
   userId: number,
   createdAt: string,
@@ -43,6 +51,7 @@ export interface IPosts {
   comments: [IComments]
   fileData?: FormData
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -60,7 +69,7 @@ export class QueryService {
   ) {
     this.apiUrl = "http://localhost:3000/api/";
   }
-
+ 
   getUsers() {
     return this.httpClient.get<IUsers[]>(this.apiUrl + "users");
   }

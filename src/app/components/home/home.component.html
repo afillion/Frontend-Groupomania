@@ -60,11 +60,11 @@
       </mat-card-content>
       <mat-card-actions style="display: flex; justify-content: space-between;">
         <div class="card-action__likes">
-          <button mat-raised-button color="primary" [matBadge]="post.likes" matBadgePosition="before" matBadgeColor="accent"
+          <button mat-raised-button color="primary" [matBadge]="getPostLike(post)" matBadgePosition="before" matBadgeColor="accent"
           (click)="updateLikes(post.id, 1, $event)">LIKE
           <mat-icon>thumb_up</mat-icon>
         </button>
-        <button mat-raised-button color="primary" [matBadge]="post.dislikes" matBadgePosition="after" matBadgeColor="accent"
+        <button mat-raised-button color="primary" [matBadge]="getPostDislike(post)" matBadgePosition="after" matBadgeColor="accent"
         (click)="updateLikes(post.id, -1, $event)">DISLIKE
         <mat-icon>thumb_down</mat-icon>
       </button>
@@ -74,14 +74,13 @@
         <mat-icon>edit</mat-icon>
       </button>
       <!-- <button mat-button (click)="openDialog(post)">Commentaires</button> -->
-      <button mat-raised-button color="accent" [matBadge]="getNumberOfComments(i)" matBadgePosition="after" matBadgeColor="primary"
+      <button mat-raised-button color="accent" [matBadge]="getNumberOfComments(post)" matBadgePosition="after" matBadgeColor="primary"
       (click)="viewComments(post.id)">VIEW COMMENTS</button>
     </div>
   </mat-card-actions>
   </div>
   </mat-card>
 </div>
-
 
 <!-- <pre>{{ posts | json }}</pre>
 <pre>{{ this.store.localStorage | json }}</pre> -->
