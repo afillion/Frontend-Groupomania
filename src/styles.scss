@@ -1,13 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~@angular/material/theming';
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-red, 500);
+$my-app-accent:  mat-palette($mat-indigo, 900);
+$my-app-warn:    mat-palette($mat-deep-orange, 500);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: #1a237e;
+}
 
 app-toolbar {
   position: fixed;
   z-index: 100;
   top: 0;
   width: 100%;
+  overflow: hidden;
+  .mat-toolbar.mat-primary {
+    background-color: white;
+  }
 }
 
 a {
@@ -16,10 +33,16 @@ a {
   cursor: auto;
 }
 
+.home-tab-group {
+  background-color: white;
+  min-height: 90vh;
+}
+
 .login-container {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
+  background-color: white;
 }
 
 .form-container {
@@ -53,4 +76,12 @@ a {
   &--post {
     min-height: 8rem;
   }
+}
+
+.toolbar-icon-container {
+  cursor: pointer;
+}
+
+.toolbar-icon {
+  width: 100%;
 }

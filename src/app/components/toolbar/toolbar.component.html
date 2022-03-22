@@ -1,15 +1,14 @@
 <div class="toolbar-container">
   <mat-toolbar color="primary">
-    <button mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span (click)="goHome()" class="toolbar__title">Groupomania</span>
+    <div class="toolbar-icon-container" (click)="goHome()">
+      <img src="assets/logo.svg" type="image" alt="icon groupomania" class="toolbar-icon">
+    </div>
     <span class="spacer"></span>
     <button mat-icon-button (click)="goProfil()">
-      <mat-icon>account_circle</mat-icon>
+      <mat-icon color="primary">account_circle</mat-icon>
     </button>
     <button mat-icon-button (click)="disconnect()">
-      <mat-icon>power_settings_new</mat-icon>
+      <mat-icon color="primary">power_settings_new</mat-icon>
     </button>
   </mat-toolbar>
 </div>
