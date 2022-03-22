@@ -21,7 +21,7 @@
     <div class="form-field-container">
       <mat-form-field appearance="fill">
         <mat-label>Email*</mat-label>
-        <input matInput type="email" placeholder="test@test.com" [formControl]="emailCtrl">
+        <input matInput type="email" placeholder="test@test.com" [formControl]="emailCtrl" alt="email">
         <span matSuffix><mat-icon>email</mat-icon></span>
         <mat-error *ngIf="emailCtrl.invalid">Veuillez utiliser une adresse email valide. Ex: test@test.com</mat-error>
       </mat-form-field>
@@ -30,7 +30,7 @@
     <div class="form-field-container">
       <mat-form-field appearance="fill">
         <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="pwdCtrl">
+        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="pwdCtrl" alt="password">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         <mat-error *ngIf="pwdCtrl.invalid">Choisissez un mot de passe entre 4 et 15 caracteres</mat-error>
       </mat-form-field>
